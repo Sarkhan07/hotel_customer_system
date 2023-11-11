@@ -1,0 +1,19 @@
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: $secondary-color;
+  color: $primary-color;
+}
+
+.container {
+  @include flex-center;
+  flex-direction: column;
+}
