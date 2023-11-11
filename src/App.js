@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './styles/main.scss';
-import { fetchUsers, fetchRooms } from './actions';
+import { fetchUsers, fetchRooms } from './actions/index.js';
 
 const App = ({ fetchUsers, fetchRooms }) => {
   useEffect(() => {

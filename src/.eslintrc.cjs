@@ -18,11 +18,9 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2021, // Updated to the specific version
+    ecmaVersion: 2021, 
     sourceType: 'module',
   },
   plugins: ['react', 'import', 'jsx-a11y', 'react-hooks', 'redux-saga',],
-  rules: {
-    // Additional rules and configurations
-  },
+  rules: {},
 };

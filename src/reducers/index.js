@@ -5,7 +5,7 @@ import {
   FETCH_ROOMS_REQUEST,
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAILURE,
-} from '../actions';
+} from '../actions/index.js';
 
 // Изначальное состояние
 const initialState = {
