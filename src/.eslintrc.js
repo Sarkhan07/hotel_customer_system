@@ -12,18 +12,17 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     'plugin:redux-saga/recommended',
-    'plugin:redux/recommended',
     'prettier',
   ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 2021, // Updated to the specific version
     sourceType: 'module',
   },
-  plugins: ['react', 'import', 'jsx-a11y', 'react-hooks', 'redux-saga', 'redux', 'eslint-plugin-redux'],
+  plugins: ['react', 'import', 'jsx-a11y', 'react-hooks', 'redux-saga',],
   rules: {
-    // Дополнительные правила и настройки
+    // Additional rules and configurations
   },
 };

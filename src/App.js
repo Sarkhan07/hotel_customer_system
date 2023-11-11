@@ -1,14 +1,11 @@
 import { Button } from 'antd';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-// import moment from 'moment';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import './styles/main.scss';
 import { fetchUsers, fetchRooms } from './actions';
-import './styles/main.scss'; 
 
-
-const App = ({ users, rooms, fetchUsers, fetchRooms }) => {
+const App = ({ fetchUsers, fetchRooms }) => {
   useEffect(() => {
     fetchUsers();
     fetchRooms();
@@ -17,9 +14,14 @@ const App = ({ users, rooms, fetchUsers, fetchRooms }) => {
   return (
     <div className="App">
       <Button type="primary">Button</Button>
-  </div>
+    </div>
   );
-}
+};
+
+App.propTypes = {
+  fetchUsers: PropTypes.func.isRequired,
+  fetchRooms: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   users: state.users,
