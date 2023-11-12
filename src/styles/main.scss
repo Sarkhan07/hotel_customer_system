@@ -1,5 +1,7 @@
 $primary-color: #3498db;
-$secondary-color: #2ecc71;
+$secondary-color: #D3D3D3;
+@import "../component/authorizationPage.scss";
+
 
 @mixin flex-center {
   display: flex;

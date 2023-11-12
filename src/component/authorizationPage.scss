@@ -1,0 +1,52 @@
+.authorizationPage {
+  padding: 10px;
+  background-color: white;
+  border: 2px solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;  
+
+  h2 {
+    margin-bottom: 20px;
+    align-self: self-start;
+    color: gray;
+  }
+
+ .inputGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 10px;
+    width: 100%;
+
+    label {
+      margin: 10px;
+      color: gray;
+    }
+
+  }
+
+  .ant-input {
+    margin-bottom: 10px;
+    color: gray;
+  }
+
+  .ant-input-password {
+    margin-bottom: 10px;
+    color: gray;
+  }
+
+  .ant-btn {
+    background-color: #1890ff;
+    color: #fff;
+    border: 1px solid #1890ff;
+
+    &:hover,
+    &:focus {
+      background-color: #096dd9;
+      border-color: #096dd9;
+    }
+  }
+}

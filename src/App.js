@@ -1,9 +1,9 @@
-import { Button } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './styles/main.scss';
 import { fetchUsers, fetchRooms } from './actions/index.js';
+import AuthorizationPage from './component/authorizationPage.jsx';
 
 const App = ({ fetchUsers, fetchRooms }) => {
   useEffect(() => {
@@ -13,7 +13,7 @@ const App = ({ fetchUsers, fetchRooms }) => {
 
   return (
     <div className="App">
-      <Button type="primary">Button</Button>
+        <AuthorizationPage/>   
     </div>
   );
 };
