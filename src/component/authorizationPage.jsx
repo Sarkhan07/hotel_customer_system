@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import {Input, Button, Checkbox}  from "antd";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebaseConfigForAuth";
+
 
 const AuthorizationPage = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +22,17 @@ const AuthorizationPage = () => {
   };
 
   const authentication = () => {
-    console.log({username, password, rememberMe})
+    signInWithEmailAndPassword(auth, username, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error)
+    })
+    // console.log({username, password, rememberMe})
   }
 
   return (
