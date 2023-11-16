@@ -1,7 +1,7 @@
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import data from "./firebase-data.json" assert { type: 'json' };
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+// import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -19,16 +19,13 @@ const auth = getAuth(app);
 const loadFirestoreData = async () => {
   try {
     const accountsCollection = collection(db, 'accounts');
-
-    // for (const [user, userData] of Object.entries(data.Accounts)) {
-    //   const accountDocRef = await addDoc(accountsCollection, { user, ...userData });
-
-      await createUserWithEmailAndPassword(auth, user, userData.password);
-
-      console.log(`User ${user} added to Firestore and Firebase Authentication successfully`);
-    // }
-
     const roomsCollection = collection(db, 'rooms');
+        
+    for (const [user, userData] of Object.entries(data.Accounts)) {
+      await addDoc(accountsCollection, { user, ...userData });
+      // await createUserWithEmailAndPassword(auth, user, userData.password);
+    }
+
     for (const roomData of data.Rooms) {
       await addDoc(roomsCollection, roomData);
     }
