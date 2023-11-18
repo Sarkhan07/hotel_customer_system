@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Input, Button, Checkbox}  from "antd";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfigForAuth";
@@ -7,7 +7,21 @@ import { auth } from "./firebaseConfigForAuth";
 const AuthorizationPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+
+  useEffect(() => {
+    console.log('useEffect - Remember Me:', rememberMe);
+    const storedUsername = localStorage.getItem("rememberedUsername");
+    const storedRememberMe = localStorage.getItem("rememberMe") === "true";
+
+    console.log('Stored Username:', storedUsername);
+    console.log('Stored Remember Me:', storedRememberMe);
+
+    if (storedRememberMe && storedUsername) {
+      setUsername(storedUsername);
+      setRememberMe(storedRememberMe);
+    }
+  }, []);
 
   const userNameChange = (e) => {
     setUsername(e.target.value);
@@ -22,17 +36,25 @@ const AuthorizationPage = () => {
   };
 
   const authentication = () => {
+
+    if (rememberMe) {
+      localStorage.setItem("rememberedUsername", username);
+      localStorage.setItem("rememberMe", true);
+    } else {
+      localStorage.removeItem("rememberedUsername");
+      localStorage.removeItem("rememberMe");
+    }
+
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user)
+      console.log(user)  
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(error)
+      console.log(errorCode, ',', errorMessage)
     })
-    // console.log({username, password, rememberMe})
   }
 
   return (
