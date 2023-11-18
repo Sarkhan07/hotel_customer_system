@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import data from "./firebase-data.json" assert { type: 'json' };
@@ -17,34 +17,47 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const loadFirestoreData = async () => {
+const loadFireStoreData = async () => {
   try {
     const accountsCollection = collection(db, 'accounts');
-  
-        
-     await Promise.all(
+    const accountsQuery = await getDocs(accountsCollection);
+
+
+    if (accountsQuery.size === 0) {
+      await Promise.all(
         Object.entries(data.Accounts).map(async ([user, userData]) => {
-        const { password, image } = userData;
-        await addDoc(accountsCollection, { user, password, image });
-        await createUserWithEmailAndPassword(auth, `${user}@example.com`, `123${password}`);
-      })
-    );
-        
-    console.log('Data loaded into Firestore successfully');
+          const { password, image } = userData;
+          await addDoc(accountsCollection, {user, password, image});
+          await createUserWithEmailAndPassword(auth, `${user}@example.com`, `123${password}`);
+        })
+      );
+      console.log('Accounts data loaded into Firestore successfully');
+    }  else {
+      console.log('Accounts data already exists in Firestore');
+    } 
+    
   } catch (error) {
-    console.error('Error loading data into Firestore:', error);
-  }
+      console.error('Error loading accounts data into Firestore:', error);
+    }
 
   try {
     const roomsCollection = collection(db, 'rooms');
-      data.Rooms.map(async (roomData) => {
-      await addDoc(roomsCollection, roomData);
-    })
+    const roomsQUery = await getDocs(roomsCollection);
+
+    if(roomsQUery.size === 0) {
+      await Promise.all(
+        data.Rooms.map(async (roomData) => {
+          await addDoc(roomsCollection, roomData);
+        })
+      );
+      console.log('Rooms data loaded into Firestore successfully');
+    } else {
+      console.log('Rooms data already exists in Firestore');
+    }
   } catch (error) {
     console.error('Error loading data into Firestore:', error);
   }
-
 };
 
-loadFirestoreData();
+loadFireStoreData();
 export { app, db };
