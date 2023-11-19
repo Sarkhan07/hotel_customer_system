@@ -7,7 +7,7 @@ import {
   FETCH_ROOMS_FAILURE,
 } from '../actions/index.js';
 
-// Изначальное состояние
+
 const initialState = {
   users: [],
   rooms: {},
@@ -31,7 +31,6 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_ROOMS_FAILURE:
       return { ...state, error: action.payload, loading: false };
 
-    // Другие cases, если необходимо
 
     default:
       return state;

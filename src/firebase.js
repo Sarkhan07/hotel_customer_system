@@ -1,8 +1,7 @@
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
-import data from "./firebase-data.json" assert { type: 'json' };
-
+import data from "./firebase-data.json";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAjYYk5GsHcMQvc4Pg2p9Xf0Yr5shrOQ7Y",
