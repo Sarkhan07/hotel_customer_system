@@ -1,7 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Button, Layout, List, Typography, Col, Row} from 'antd';
+import React, { useState } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { Button, Layout, List, Typography, Col, Row, Modal, Input, DatePicker} from 'antd';
 import { Link, useParams } from 'react-router-dom';
+import { checkInRoom, checkOutRoom } from '../actions/index';
 import MainLayoutPage from './mainLayoutPage';
 
 const { Content } = Layout;
@@ -9,12 +10,15 @@ const { Text } = Typography;
 
 const SingleRoomPage = () => {
   const { RoomId } = useParams();
-  console.log(RoomId);
   const rooms = useSelector((state) => state.rooms);
-  console.log(rooms)
+  const [checkInVisible, setCheckInVisible] = useState(false);
+  const [checkOutVisible, setCheckOutVisible] = useState(false);
+  const [guestName, setGuestName] = useState('');
+  const [checkOutDate, setCheckoutDate] = useState(null);
+  const dispatch = useDispatch();
   
   const filterRooms = rooms.find((r) => r.id === RoomId);
-  console.log(filterRooms);
+
   if (!filterRooms) {
     return (
       <MainLayoutPage>
@@ -27,6 +31,25 @@ const SingleRoomPage = () => {
       </MainLayoutPage>
     );
   }
+
+  const handleCheckIn = () => {
+    setCheckInVisible(true);
+  }
+
+  
+  const handleCheckOut = () => {
+    setCheckOutVisible(true);
+  }
+
+
+  const handleConfirmCheckIn = () => {
+    dispatch(checkInRoom(RoomId, guestName));
+    setCheckInVisible(false);
+  };
+    const handleConfirmCheckOut = () => {
+    dispatch(checkOutRoom(RoomId));
+    setCheckOutVisible(false);
+  };
 
   const roomDetails = [
     { label: 'Number', value: filterRooms.number },
@@ -63,8 +86,8 @@ const SingleRoomPage = () => {
       <Col xs={24} sm={24} md={8}>
         <div>
             <h3>Actions</h3>
-            <Button type="primary">Check In</Button>
-            <Button type="danger">Check Out</Button>
+            <Button type="primary" onClick={handleCheckIn}>Check In</Button>
+            <Button type="danger" onClick={handleCheckOut}>Check Out</Button>
           </div>
      <div>
         <h3 style={{color: 'black'}}>Features</h3>
@@ -82,7 +105,28 @@ const SingleRoomPage = () => {
           <h3 style={{color: 'black'}}>Description</h3>
           <p style={{color: 'black'}}>{filterRooms.description}</p>
         </div>
+        <Modal
+            title="Check In"
+            visible={checkInVisible}
+            onOk={handleConfirmCheckIn}
+            onCancel={() => setCheckInVisible(false)}
+            >
+            <p>Please, enter the guest&apos;s name:</p>
+             <Input value={guestName} onChange={(e) => setGuestName(e.target.value)} />
+            </Modal>
+            <Modal
+            title="Check Out"
+            visible={checkOutVisible}
+            onOk={handleConfirmCheckOut}
+            onCancel={() => setCheckOutVisible(false)}
+          >
+            <p>Do you confirm the check-out Room1?</p>
+            <DatePicker onChange={(date) => setCheckoutDate(date)} />
+          
+              
         
+          </Modal>
+
       </Content>
     </MainLayoutPage>
   );

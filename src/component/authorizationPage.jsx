@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import {Input, Button, Checkbox}  from "antd";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfigForAuth";
+import { useNavigate } from "react-router-dom";
 
 
 const AuthorizationPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('AuthorizationPage rendered');
     console.log('useEffect - Remember Me:', rememberMe);
     const storedUsername = localStorage.getItem("rememberedUsername");
     const storedRememberMe = localStorage.getItem("rememberMe") === "true";
@@ -24,6 +27,7 @@ const AuthorizationPage = () => {
   }, []);
 
   const userNameChange = (e) => {
+    console.log('Username changed:', e.target.value);
     setUsername(e.target.value);
   }
 
@@ -36,6 +40,7 @@ const AuthorizationPage = () => {
   };
 
   const authentication = () => {
+    console.log('Attempting authentication');
 
     if (rememberMe) {
       localStorage.setItem("rememberedUsername", username);
@@ -49,11 +54,12 @@ const AuthorizationPage = () => {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user)  
+      navigate("/main");
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, ',', errorMessage)
+      console.log(errorCode, errorMessage)
     })
   }
 

@@ -5,6 +5,8 @@ import {
   FETCH_ROOMS_REQUEST,
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAILURE,
+  CHECK_IN_ROOM,
+  CHECK_OUT_ROOM
 } from '../actions/index.js';
 
 
@@ -31,6 +33,19 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_ROOMS_FAILURE:
       return { ...state, error: action.payload, loading: false };
 
+      case CHECK_IN_ROOM:
+        const { roomId, guestName } = action.payload;
+        const updatedRooms = state.rooms.map((room) =>
+          room.id === roomId ? { ...room, isCheckedIn: true, guest: guestName } : room
+        );
+        return { ...state, rooms: updatedRooms };
+  
+      case CHECK_OUT_ROOM:
+        const { roomId: checkoutRoomId } = action.payload;
+        const updatedRoomsAfterCheckout = state.rooms.map((room) =>
+          room.id === checkoutRoomId ? { ...room, isCheckedIn: false, guest: '' } : room
+        );
+        return { ...state, rooms: updatedRoomsAfterCheckout };
 
     default:
       return state;

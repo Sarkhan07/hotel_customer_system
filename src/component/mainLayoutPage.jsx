@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types'; 
 
 const {Header, Content} = Layout;
-// const accounts = useSelector((state) => state.accaunts);
+
 
 
 const MainLayoutPage = ({children}) => {
+
   return (
     <Layout>
       <Header>
@@ -27,4 +28,3 @@ MainLayoutPage.propTypes = {
 };
 
 export default MainLayoutPage;
-// <img src="state.accaunts.image"/>

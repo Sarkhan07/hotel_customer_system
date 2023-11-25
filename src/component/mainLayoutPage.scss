@@ -3,33 +3,34 @@ Layout {
 }
 
 header {
-    background-color: #fff;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  background-color: #fff;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 
-    img {
-      width: 50px;
-      height: 50px;
-      margin-top: 10px;
-    }
+  img {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+  }
 
-    .ant-btn {
-      margin-top: 15px;
-    }
+  .ant-btn {
+    margin-top: 15px;
+  }
 }
 
 Content {
-    padding: 0 16px;
+  padding: 0 16px;
 
- 
+
 }
 
 main {
 
   padding: 40px;
+
   .ant-btn {
     margin-right: 10px;
     margin-bottom: 30px;
@@ -43,9 +44,9 @@ main {
 }
 
 .ant-table-cell {
-  
-  button {
-  left: 50%;
 
- }
+  button {
+    left: 50%;
+
+  }
 }

@@ -17,19 +17,10 @@ const App = ({ fetchUsers, fetchRooms }) => {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<MainPage />} />
-        <Route exact
-          path="/"
-          element={
-              <MainPage />
-          }
-        />
-        <Route
-          path="/room/:RoomId"
-          element={
-              <SingleRoomPage />
-          }
-        />
+      <Route path="/" element={<AuthorizationPage />} />
+      <Route path="/main" element={<MainPage />} />
+      <Route path="/room/:RoomId" element={<SingleRoomPage />} />
+    
       </Routes>
     </Router>
   );
