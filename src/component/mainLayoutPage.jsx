@@ -1,8 +1,9 @@
 import React from "react";
 import { Layout, Button} from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';  
+import { auth, signOut } from "../firebase";
 
 const {Header, Content} = Layout;
 
@@ -11,6 +12,18 @@ const {Header, Content} = Layout;
 const MainLayoutPage = ({children}) => {
   const users = useSelector((state) => state.users);
   const currentUser = users.user == 'user2' ? users[1] : users[0];
+  const navigate = useNavigate();
+
+  const signOutUser = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
 
   return (
     <Layout>
@@ -28,7 +41,7 @@ const MainLayoutPage = ({children}) => {
                 className="userPhoto"
               />
          
-              <button >Log Out</button>
+              <Button onClick={signOutUser}>Log Out</Button>
             </div>
           )}
       

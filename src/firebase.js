@@ -1,6 +1,6 @@
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signOut} from 'firebase/auth';
 import data from "./firebase-data.json";
 
 const firebaseConfig = {
@@ -59,4 +59,4 @@ const loadFireStoreData = async () => {
 };
 
 loadFireStoreData();
-export { app, db };
+export { app, db, auth, signOut };

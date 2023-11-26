@@ -90,7 +90,6 @@ const SingleRoomPage = () => {
 
       <Col xs={24} sm={24} md={8}>
         <div>
-            <h3>Actions</h3>
             <Button type="primary" onClick={handleCheckIn}>Check In</Button>
             <Button type="danger" onClick={handleCheckOut}>Check Out</Button>
           </div>
@@ -128,9 +127,6 @@ const SingleRoomPage = () => {
             onCancel={() => setCheckOutVisible(false)}
           >
             <p>Do you confirm the check-out Room1?</p>
-           
-          
-              
         
           </Modal>
 
