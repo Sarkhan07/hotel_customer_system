@@ -4,6 +4,7 @@ import { Button, Layout, List, Typography, Col, Row, Modal, Input, DatePicker} f
 import { Link, useParams } from 'react-router-dom';
 import { checkInRoom, checkOutRoom } from '../actions/index';
 import MainLayoutPage from './mainLayoutPage';
+import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 const { Text } = Typography;
@@ -16,7 +17,8 @@ const SingleRoomPage = () => {
   const [guestName, setGuestName] = useState('');
   const [checkOutDate, setCheckoutDate] = useState(null);
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+
   const filterRooms = rooms.find((r) => r.id === RoomId);
 
   if (!filterRooms) {
@@ -51,6 +53,11 @@ const SingleRoomPage = () => {
     setCheckOutVisible(false);
   };
 
+
+  const backToHome = () => {
+    navigate("/main");
+  }
+
   const roomDetails = [
     { label: 'Number', value: filterRooms.number },
     { label: 'Type', value: filterRooms.type },
@@ -64,9 +71,7 @@ const SingleRoomPage = () => {
       <Content>
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={8}>
-          <Button>
-            <Link to="/">Back Home</Link>
-          </Button>
+        <Button type="primary" onClick={backToHome}>Back Home</Button>
           <div>
           <img src={filterRooms.gallery[0]} alt={`Room ${filterRooms.number}`} style={{ maxWidth: '100%' }} />
           </div>
@@ -113,6 +118,8 @@ const SingleRoomPage = () => {
             >
             <p>Please, enter the guest&apos;s name:</p>
              <Input value={guestName} onChange={(e) => setGuestName(e.target.value)} />
+             <p>Please, enter the approximate date of guest checkout</p>
+             <DatePicker onChange={(date) => setCheckoutDate(date)} />
             </Modal>
             <Modal
             title="Check Out"
@@ -121,7 +128,7 @@ const SingleRoomPage = () => {
             onCancel={() => setCheckOutVisible(false)}
           >
             <p>Do you confirm the check-out Room1?</p>
-            <DatePicker onChange={(date) => setCheckoutDate(date)} />
+           
           
               
         
