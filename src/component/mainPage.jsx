@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { useSelector } from 'react-redux';
 import {Layout, Button, Table, Checkbox} from 'antd';
 import MainLayoutPage from './mainLayoutPage';
@@ -45,13 +45,31 @@ const column = [
 
 const MainPage = () => {
   const rooms = useSelector((state) => state.rooms);
+  const onlyFreeRooms = useSelector((state) => state.rooms.filter((room) => !room.guest));
+  const [filterFreeRooms, setFilterFreeRooms] = useState(false);
+  
+  const toggleFilterFreeRooms = () => {
+    setFilterFreeRooms(!filterFreeRooms);
+  };
 
+  const toggleToTrue = () => {
+    setFilterFreeRooms(false);
+  };
+  
+  console.log("All Rooms:", rooms);
+  console.log("Free Rooms:", onlyFreeRooms);
+
+
+  const dataSource = filterFreeRooms ? onlyFreeRooms : rooms;
+  
   return (
     <MainLayoutPage>
       <Content>
-        <Button>Clear all filters</Button>
-        <Checkbox>Free rooms only</Checkbox>
-        <Table dataSource={rooms} columns={column}/>      
+        <Button onClick={toggleToTrue}>Clear all filters</Button>
+        <Checkbox onChange={toggleFilterFreeRooms} checked={filterFreeRooms}>
+            Free rooms only
+         </Checkbox>
+        <Table dataSource={dataSource} columns={column}/>      
       </Content>  
     </MainLayoutPage>
   );
