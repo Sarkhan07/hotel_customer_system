@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { Button, Layout, List, Typography, Col, Row, Modal, Input, DatePicker} from 'antd';
 import { Link, useParams } from 'react-router-dom';
@@ -34,6 +34,13 @@ const SingleRoomPage = () => {
     );
   }
 
+  useEffect(() => {
+    if (filterRooms.checkOutDate && new Date(filterRooms.checkOutDate) <= new Date()) {
+      dispatch(checkOutRoom(RoomId));
+    }
+  }, [filterRooms.checkOutDate, RoomId, dispatch]);
+
+
   const handleCheckIn = () => {
     setCheckInVisible(true);
   }
@@ -45,9 +52,16 @@ const SingleRoomPage = () => {
 
 
   const handleConfirmCheckIn = () => {
-    dispatch(checkInRoom(RoomId, guestName));
+      if (checkOutDate) {
+      dispatch(checkInRoom(RoomId, guestName, checkOutDate));
+    } else {
+      dispatch(checkInRoom(RoomId, guestName));
+    }
+
     setCheckInVisible(false);
   };
+
+
     const handleConfirmCheckOut = () => {
     dispatch(checkOutRoom(RoomId));
     setCheckOutVisible(false);

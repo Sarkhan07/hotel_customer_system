@@ -34,18 +34,21 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, error: action.payload, loading: false };
 
       case CHECK_IN_ROOM:
-        const { roomId, guestName } = action.payload;
+        const { roomId, guestName, checkOutDate } = action.payload;
         const updatedRooms = state.rooms.map((room) =>
-          room.id === roomId ? { ...room, isCheckedIn: true, guest: guestName } : room
+          room.id === roomId
+            ? { ...room, isCheckedIn: true, guest: guestName, checkOutDate: checkOutDate || null }
+            : room
         );
         return { ...state, rooms: updatedRooms };
   
-      case CHECK_OUT_ROOM:
-        const { roomId: checkoutRoomId } = action.payload;
-        const updatedRoomsAfterCheckout = state.rooms.map((room) =>
-          room.id === checkoutRoomId ? { ...room, isCheckedIn: false, guest: '' } : room
-        );
-        return { ...state, rooms: updatedRoomsAfterCheckout };
+        case CHECK_OUT_ROOM:
+          const { roomId: checkoutRoomId } = action.payload;
+          const updatedRoomsAfterCheckout = state.rooms.map((room) =>
+            room.id === checkoutRoomId ? { ...room, isCheckedIn: false, guest: '', checkOutDate: null } : room
+          );
+          return { ...state, rooms: updatedRoomsAfterCheckout };
+        
 
     default:
       return state;

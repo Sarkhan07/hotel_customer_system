@@ -6,12 +6,12 @@
     FETCH_ROOMS_REQUEST,
     FETCH_ROOMS_SUCCESS,
     FETCH_ROOMS_FAILURE,
+    CHECK_IN_ROOM, 
+    CHECK_OUT_ROOM 
   } from '../actions/index.js';
 
-  import { collection, getDocs } from 'firebase/firestore';
   import { db } from '../firebase.js';
-  import { CHECK_IN_ROOM, CHECK_OUT_ROOM } from '../actions/index.js';
-  import { updateDoc, doc } from 'firebase/firestore';
+  import { updateDoc, doc, collection, getDocs} from 'firebase/firestore';
 
   const fetchUsersFromFirestore = () => {
     const usersCollection = collection(db, 'accounts');
@@ -51,9 +51,13 @@
 
   function* checkInRoomSaga(action) {
     try {
-      const { roomId, guestName } = action.payload;
+      const { roomId, guestName, checkOutDate } = action.payload
       const roomDocRef = doc(db, 'rooms', roomId);
-      yield updateDoc(roomDocRef, { isCheckedIn: true, guest: guestName });
+      const updateData = { isCheckedIn: true, guest: guestName };
+      if (checkOutDate) {
+        updateData.checkOutDate = checkOutDate;
+      }
+      yield updateDoc(roomDocRef, updateData);
     } catch (error) {
       console.error('An error occurred during check-in:', error);
     }
@@ -63,7 +67,7 @@
     try {
       const { roomId } = action.payload;
       const roomDocRef = doc(db, 'rooms', roomId);
-      yield updateDoc(roomDocRef, { isCheckedIn: false, guest: '' });
+      yield updateDoc(roomDocRef, { isCheckedIn: false, guest: '', checkOutDate: null });
     } catch (error) {
       console.error('An error occurred during check-out:', error);
     }

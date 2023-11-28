@@ -9,9 +9,9 @@ export const FETCH_ROOMS_FAILURE = 'FETCH_ROOMS_FAILURE';
 export const CHECK_IN_ROOM = 'CHECK_IN_ROOM';
 export const CHECK_OUT_ROOM = 'CHECK_OUT_ROOM';
 
-export const checkInRoom = (roomId, guestName) => ({
+export const checkInRoom = (roomId, guestName, checkOutDate) => ({
   type: CHECK_IN_ROOM,
-  payload: { roomId, guestName },
+  payload: { roomId, guestName, checkOutDate },
 });
 
 export const checkOutRoom = (roomId) => ({
