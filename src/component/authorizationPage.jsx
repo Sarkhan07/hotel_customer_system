@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Input, Button, Checkbox}  from "antd";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "./firebaseConfigForAuth";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ const AuthorizationPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const AuthorizationPage = () => {
       setRememberMe(storedRememberMe);
     }
   }, []);
+
 
   const userNameChange = (e) => {
     console.log('Username changed:', e.target.value);
@@ -63,10 +65,28 @@ const AuthorizationPage = () => {
     })
   }
 
+  const register = () => {
+    console.log('Attempting registration');
+
+    createUserWithEmailAndPassword(auth, username, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/main");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      })
+  }
+
+
   return (
     <div style={{width: "500px", margin: "15% auto"}}>
      <div className="authorizationPage">
         <h2>Authentication</h2>
+        <h2>{isRegistering ? "Register" : "Authentication"}</h2>
         
         <div className="inputGroup">
 
@@ -97,10 +117,13 @@ const AuthorizationPage = () => {
           </Checkbox>
         </div>
 
-
         <Button type="primary" onClick={authentication}>
-          Log in
-        </Button>  
+       Log in
+        </Button>
+
+        <Button type="primary" onClick={register}>
+        Register
+      </Button>
      
      
      </div>
