@@ -11,8 +11,8 @@ import {
 
 
 const initialState = {
-  users: [],
-  rooms: {},
+  users: JSON.parse(localStorage.getItem('users')) || [],
+  rooms: JSON.parse(localStorage.getItem('rooms')) || [],
   loading: false,
   error: null,
 };
@@ -24,9 +24,11 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
 
     case FETCH_USERS_SUCCESS:
+      localStorage.setItem('users', JSON.stringify(action.payload));
       return { ...state, users: action.payload, loading: false };
 
     case FETCH_ROOMS_SUCCESS:
+      localStorage.setItem('rooms', JSON.stringify(action.payload));
       return { ...state, rooms: action.payload, loading: false };
 
     case FETCH_USERS_FAILURE:
@@ -40,6 +42,7 @@ const rootReducer = (state = initialState, action) => {
             ? { ...room, isCheckedIn: true, guest: guestName, checkOutDate: checkOutDate || null }
             : room
         );
+        localStorage.setItem('rooms', JSON.stringify(updatedRooms));
         return { ...state, rooms: updatedRooms };
   
         case CHECK_OUT_ROOM:
@@ -47,6 +50,7 @@ const rootReducer = (state = initialState, action) => {
           const updatedRoomsAfterCheckout = state.rooms.map((room) =>
             room.id === checkoutRoomId ? { ...room, isCheckedIn: false, guest: '', checkOutDate: null } : room
           );
+          localStorage.setItem('rooms', JSON.stringify(updatedRoomsAfterCheckout));
           return { ...state, rooms: updatedRoomsAfterCheckout };
         
 

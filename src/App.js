@@ -8,11 +8,11 @@ import AuthorizationPage from './component/authorizationPage.jsx';
 import MainPage from './component/mainPage.jsx';
 import SingleRoomPage from './component/SingleRoomPage.jsx';
 
-const App = ({ fetchUsers, fetchRooms }) => {
+const App = ({ fetchUsers, fetchRooms , users, rooms}) => {
   useEffect(() => {
-    fetchUsers();
-    fetchRooms();
-  }, [fetchUsers, fetchRooms]);
+    if (users.length === 0) fetchUsers();
+    if (rooms.length === 0) fetchRooms();
+  }, [fetchUsers, fetchRooms, users, rooms]);
   
   return (
     <Router>
@@ -30,6 +30,8 @@ const App = ({ fetchUsers, fetchRooms }) => {
 App.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
   fetchRooms: PropTypes.func.isRequired,
+  users: PropTypes.array.isRequired,
+  rooms: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

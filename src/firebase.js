@@ -1,7 +1,10 @@
+
+import React, { useEffect } from 'react';
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signOut} from 'firebase/auth';
 import data from "./firebase-data.json";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAjYYk5GsHcMQvc4Pg2p9Xf0Yr5shrOQ7Y",
@@ -58,5 +61,18 @@ const loadFireStoreData = async () => {
   }
 };
 
-loadFireStoreData();
+const FirestoreLoader = () => {
+  useEffect(() => {
+    loadFireStoreData();
+  }, []);
+
+  return (
+    <div>
+      Firestore data loader component
+    </div>
+  );
+};
+
+
 export { app, db, auth, signOut };
+export default FirestoreLoader;
