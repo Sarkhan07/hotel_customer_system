@@ -14,7 +14,7 @@ Layout {
   top: 0;
 
   .ant-btn {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .logo {
@@ -59,3 +59,109 @@ main {
 
   }
 }
+
+@media (max-width: 768px) {
+
+
+  .ant-layout-header .logo,
+  .ant-layout-header .userPhoto {
+    margin-bottom: 1px;
+  }
+
+  .ant-layout-header {
+    padding: 10px;
+  }
+
+  .ant-layout-header .logo {
+    width: 80px;
+    height: 40px;
+  }
+
+  .ant-layout-header .userPhoto {
+    width: 40px;
+    height: 40px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  main .ant-btn {
+    width: 50%;
+    margin-right: 0;
+    margin-top: 5px;
+  }
+
+  .ant-table-cell button {
+    width: 100%;
+    left: 0;
+  }
+
+
+}
+
+@media (max-width: 480px) {
+
+
+  .ant-layout-header .logo,
+  .ant-layout-header .userPhoto {
+    margin-bottom: 1px;
+  }
+
+  .ant-layout-header {
+    padding: 10px;
+  }
+
+  .ant-layout-header .logo {
+    width: 80px;
+    height: 40px;
+  }
+
+  .ant-layout-header .userPhoto {
+    width: 25px;
+    height: 25px;
+  }
+
+  main {
+    padding: 5px;
+  }
+
+  main .ant-btn {
+    width: 30%;
+    margin-right: 0;
+    margin-top: 5px;
+  }
+
+  .ant-table-cell button {
+    width: 100%;
+    left: 0;
+  }
+}
+
+// @media (min-width: 769px) {
+//   .ant-layout-header {
+//     padding: 0 20px;
+//   }
+
+//   .ant-layout-header .logo {
+//     width: 130px;
+//     height: 60px;
+//   }
+
+//   .ant-layout-header .userPhoto {
+//     width: 60px;
+//     height: 60px;
+//     margin-right: 30px;
+//     margin-top: 10px;
+//   }
+
+//   main {
+//     padding: 50px;
+//   }
+
+//   main .ant-btn {
+//     margin-right: 15px;
+//     margin-bottom: 35px;
+//   }
+
+// }

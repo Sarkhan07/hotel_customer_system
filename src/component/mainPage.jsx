@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 import { useSelector } from 'react-redux';
-import {Layout, Button, Table, Checkbox} from 'antd';
+import { Layout, Button, Table, Checkbox, Row, Col } from 'antd';
 import MainLayoutPage from './mainLayoutPage';
 import { Link } from 'react-router-dom';
 
@@ -65,12 +65,29 @@ const MainPage = () => {
   return (
     <MainLayoutPage>
       <Content>
+      <Row gutter={[16, 16]} justify="space-between" align="middle">
+      <Col xs={24} sm={12} md={8}>
+
+
         <Button onClick={toggleToTrue}>Clear all filters</Button>
+        </Col>
+        <Col xs={24} sm={12} md={8}>
+
         <Checkbox onChange={toggleFilterFreeRooms} checked={filterFreeRooms}>
             Free rooms only
          </Checkbox>
-        <Table dataSource={dataSource} columns={column}/>      
+         </Col>
+         </Row>
+        <Table dataSource={dataSource} columns={column}
+        pagination={{ pageSize: 5 }}
+        scroll={{ x: 'max-content' }}/>   
+        
+        
+
       </Content>  
+
+
+
     </MainLayoutPage>
   );
 };
